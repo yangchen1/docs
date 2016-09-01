@@ -5,9 +5,9 @@ Developer Machine Setup
 
 1. Download and set up Docker Toolbox
 	1. Follow the instructions at [http://docs.docker.com/installation/mac/](http://docs.docker.com/installation/mac/)
-	2. Start a new docker host  
+	2. Start a new Docker host  
 		`docker-machine create -d virtualbox dev`
-	2. Get the IP address of your docker host  
+	2. Get the IP address of your Docker host  
 		`docker-machine ip dev`
 	3. Add a line to your /etc/hosts that goes `<Docker IP> dockerhost`
 	4. Run `docker-machine env dev` and copy the export statements to your ~/.bash_profile
@@ -159,16 +159,16 @@ Any issues? Please let us know on our forums at: http://forum.mattermost.org
 
 1. Install and setup Docker Toolbox
     1. Install [Docker Toolbox](https://www.docker.com/products/docker-toolbox)
-    2. Run the `Docker Quickstart Terminal` and let it configure `default` machine
-    3. Get `default` IP by run `docker-machine ip default` in the terminal
-    4. Add the line `<Docker-IP> dockerhost` to `C:\Windows\System32\drivers\etc\hosts` using editor with administrator privilege
+    2. Run the `Docker Quickstart Terminal` and let it configure the `default` machine
+    3. Get the `default` IP by running `docker-machine ip default` in the terminal
+    4. Add the line `<Docker-IP> dockerhost` to `C:\Windows\System32\drivers\etc\hosts` (needs administrator privilege)
 2. Install and setup Node.Js
     1. Download and install from [https://nodejs.org/](https://nodejs.org/)
-    2. Open `Node.js command prompt` and run `npm config set cache <short-path>` to set npm global cache to shorter path, the default path will likely cause path over 255 characters.
+    2. Open `Node.js command prompt` and run `npm config set cache <short-path>` to set npm global cache to a shorter path, the default path will likely cause the path to be over 255 characters.
 3. Download and install Go from [https://golang.org/dl/](https://golang.org/dl/) 
 4. Install and setup MSYS2
     1. Download and install from [https://msys2.github.io/](https://msys2.github.io/)
-    2. Following the page's instruction to update MSYS2 packages
+    2. Follow the page's instructions to update MSYS2 packages
 5. Fork Mattermost on GitHub.com from [https://github.com/mattermost/platform](https://github.com/mattermost/platform), then do the following in Git Bash:
     1. `cd ~/go`  
     2. `mkdir -p src/github.com/mattermost`  
@@ -192,7 +192,7 @@ Any issues? Please let us know on our forums at: http://forum.mattermost.org
     ```
 
 6. Patch make files:
-    1. In Ldap part of `start-docker` section of root Makefile, change all `docker exec -it ...` to `docker exec -i ...` as docker in windows can't deal with tty.
+    1. In LDAP part of `start-docker` section of root Makefile, change all `docker exec -it ...` to `docker exec -i ...` as Docker in Windows can't deal with tty.
     2. In `webapp/package.json`, `build` and `run` of `scripts` are beginning with `NODE_ENV=production`, remove it as Node.Js in windows are not using unix shell, it does not understand tne environment variable synax.
     3. In windows part of `package` section of root Makefile, change `cp $(GOPATH)/bin/windows_amd64/platform.exe` to `cp $(GOPATH)/bin/platform.exe`, for some reason go in windows does not produce binary under architecture folder.
 7. Run unit tests on Mattermost using `make test` to make sure the installation was successful
